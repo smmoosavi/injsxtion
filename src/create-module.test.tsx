@@ -18,8 +18,17 @@ describe('module', function () {
 
     const mainModule = createModule(mainModuleDefinition);
     await mainModule.register();
-    render(<>{mainModule.render()}</>);
+    const { asFragment } = render(<>{mainModule.render()}</>);
     expect(screen.getByTestId('main')).toBeTruthy();
+    expect(asFragment()).toMatchInlineSnapshot(`
+      <DocumentFragment>
+        <div
+          data-testid="main"
+        >
+          Hello
+        </div>
+      </DocumentFragment>
+    `);
   });
   it('should register', async function () {
     type ModuleTypeDefinitions = WithWidgetTypeDefinition<'main'> &
@@ -40,9 +49,22 @@ describe('module', function () {
 
     const mainModule = createModule(mainModuleDefinition);
     await mainModule.register();
-    render(<>{mainModule.render()}</>);
+    const { asFragment } = render(<>{mainModule.render()}</>);
     expect(screen.getByTestId('main')).toBeTruthy();
     expect(within(screen.getByTestId('main')).getByTestId('root')).toBeTruthy();
+    expect(asFragment()).toMatchInlineSnapshot(`
+      <DocumentFragment>
+        <div
+          data-testid="main"
+        >
+          <div
+            data-testid="root"
+          >
+            hello
+          </div>
+        </div>
+      </DocumentFragment>
+    `);
   });
   it('should render outlet with order', async function () {
     type ModuleTypeDefinitions = WithWidgetTypeDefinition<'main'> &
@@ -77,7 +99,30 @@ describe('module', function () {
 
     const mainModule = createModule(mainModuleDefinition);
     await mainModule.register();
-    render(<>{mainModule.render()}</>);
+    const { asFragment } = render(<>{mainModule.render()}</>);
+    expect(asFragment()).toMatchInlineSnapshot(`
+      <DocumentFragment>
+        <div
+          data-testid="main"
+        >
+          <div
+            data-testid="root"
+          >
+            <div
+              data-testid="ad"
+            >
+              ad
+            </div>
+            <div
+              data-testid="page1"
+            >
+              page1
+            </div>
+          </div>
+        </div>
+      </DocumentFragment>
+    `);
+
     expect(screen.getByTestId('main')).toBeTruthy();
     expect(within(screen.getByTestId('main')).getByTestId('root')).toBeTruthy();
     expect(
@@ -128,7 +173,32 @@ describe('module', function () {
 
     const mainModule = createModule(mainModuleDefinition);
     await mainModule.register();
-    render(<>{mainModule.render()}</>);
+    const { asFragment } = render(<>{mainModule.render()}</>);
+    expect(asFragment()).toMatchInlineSnapshot(`
+      <DocumentFragment>
+        <div
+          data-testid="theme-provider"
+        >
+          <div
+            data-testid="i18n-provider"
+          >
+            <div
+              data-testid="main"
+            >
+              <div
+                data-testid="root"
+              >
+                <div
+                  data-testid="page1"
+                >
+                  page1
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </DocumentFragment>
+    `);
     expect(screen.getByTestId('theme-provider')).toBeTruthy();
     expect(
       within(screen.getByTestId('theme-provider')).getByTestId('i18n-provider'),
@@ -201,7 +271,29 @@ describe('module', function () {
 
     const mainModule = createModule(mainModuleDefinition);
     await mainModule.register();
-    render(<>{mainModule.render()}</>);
+    const { asFragment } = render(<>{mainModule.render()}</>);
+    expect(asFragment()).toMatchInlineSnapshot(`
+      <DocumentFragment>
+        <div
+          data-testid="main"
+        >
+          <div
+            data-testid="root"
+          >
+            <div
+              data-testid="size"
+            >
+              size: 1, color: red
+            </div>
+            <div
+              data-testid="page1"
+            >
+              page1
+            </div>
+          </div>
+        </div>
+      </DocumentFragment>
+    `);
     expect(screen.getByTestId('main')).toBeTruthy();
     expect(within(screen.getByTestId('main')).getByTestId('root')).toBeTruthy();
     expect(
@@ -257,12 +349,26 @@ describe('module', function () {
     await mainModule1.register();
     const mainModule2 = createModule(def2);
     await mainModule2.register();
-    render(
+    const { asFragment } = render(
       <>
         {mainModule1.render()}
         {mainModule2.render()}
       </>,
     );
+    expect(asFragment()).toMatchInlineSnapshot(`
+      <DocumentFragment>
+        <div
+          data-testid="foo"
+        >
+          foo: 1
+        </div>
+        <div
+          data-testid="bar"
+        >
+          bar: 2
+        </div>
+      </DocumentFragment>
+    `);
     expect(screen.getByTestId('foo')).toBeTruthy();
     expect(screen.getByTestId('foo').textContent).toBe('foo: 1');
     expect(screen.getByTestId('foo')).toBeTruthy();
@@ -310,12 +416,26 @@ describe('module', function () {
     const mainModule2 = createModule(def2);
     await mainModule1.register();
     await mainModule2.register();
-    render(
+    const { asFragment } = render(
       <>
         {mainModule1.render()}
         {mainModule2.render()}
       </>,
     );
+    expect(asFragment()).toMatchInlineSnapshot(`
+      <DocumentFragment>
+        <div
+          data-testid="foo"
+        >
+          foo: 12
+        </div>
+        <div
+          data-testid="bar"
+        >
+          bar: 12
+        </div>
+      </DocumentFragment>
+    `);
     expect(screen.getByTestId('foo')).toBeTruthy();
     expect(screen.getByTestId('foo').textContent).toBe('foo: 12');
     expect(screen.getByTestId('foo')).toBeTruthy();
