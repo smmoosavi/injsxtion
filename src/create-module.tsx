@@ -12,8 +12,9 @@ import { defer, Deferred } from './utils/defer';
 import { sortBy } from './utils/sort-by';
 import { appendToMap } from './utils/map';
 import { Edge, sortProviders } from './utils/sort-providers';
+import { AnyExtra } from './injsxtion-types';
 
-interface InnerModule<ID = ModuleId, Extra = {}> {
+interface InnerModule<ID = ModuleId, Extra = AnyExtra> {
   id: ID;
   addOutlet(outlet: ModuleSelector, config: OutletConfig): void;
   register(): Promise<void>;
@@ -173,7 +174,7 @@ async function _registerModules(state: State) {
   }
 }
 
-export function createModule<ID extends ModuleId, Extra>(
+export function createModule<ID extends ModuleId, Extra extends AnyExtra>(
   definition: ModuleDefinition<ID, Extra>,
 ): Extra & Module {
   const state = _createState();

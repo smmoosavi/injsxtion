@@ -6,3 +6,4 @@ dist-ssr
 .cache
 coverage
 /tsdoc-metadata.json
+.pnpm-debug.log

@@ -12,6 +12,7 @@ export type {
   ContextModule as _ContextModule,
 } from './types';
 export type {
+  AnyExtra as _AnyExtra,
   WithProviderTypeDefinition,
   WithWidgetTypeDefinition,
   WidgetTypeDefinition,

@@ -1,3 +1,7 @@
+/// <reference types="react" />
+
+export declare interface _AnyExtra {}
+
 export declare type _BaseExtraFields = Record<string, any>;
 
 export declare interface _BaseModuleTypeDefinition<
@@ -33,17 +37,17 @@ export declare function createInjsxtion<
   TypeDefinitions extends _BaseTypeDefinitions,
 >(): Injsxtion<TypeDefinitions>;
 
-export declare function createModule<ID extends ModuleId, Extra>(
-  definition: _ModuleDefinition<ID, Extra>,
-): Extra & Module;
+export declare function createModule<
+  ID extends ModuleId,
+  Extra extends _AnyExtra,
+>(definition: _ModuleDefinition<ID, Extra>): Extra & Module;
 
 export declare type Depth = number;
 
-declare type Equal<X, Y> = (<T>() => T extends X ? 1 : 2) extends <
-  T,
->() => T extends Y ? 1 : 2
-  ? true
-  : false;
+declare type Equal<X, Y> =
+  (<T>() => T extends X ? 1 : 2) extends <T>() => T extends Y ? 1 : 2
+    ? true
+    : false;
 
 export declare type _FilterModuleNamesByKind<
   Tds extends _BaseTypeDefinitions,
@@ -80,11 +84,8 @@ declare type IsExtrasFulfilled<Extras, ResolvedKeys> = IsNever<
 
 declare type IsNever<T> = [T] extends [never] ? true : false;
 
-declare type IsOptional<T, K extends keyof T> = Partial<
-  Pick<T, K>
-> extends Pick<T, K>
-  ? true
-  : false;
+declare type IsOptional<T, K extends keyof T> =
+  Partial<Pick<T, K>> extends Pick<T, K> ? true : false;
 
 export declare type Kind = 'provider' | 'widget';
 
@@ -147,7 +148,7 @@ declare interface ModuleBuilderProto<
   build(): _ModuleDefinition<Name, _GetExtraFieldsByName<Tds, Name>>;
 }
 
-export declare interface _ModuleDefinition<ID = ModuleId, Extra = {}> {
+export declare interface _ModuleDefinition<ID = ModuleId, Extra = Object> {
   id: ID;
   kind: Kind;
   depth?: Depth;

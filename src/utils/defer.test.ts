@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest';
 import { defer } from './defer';
 
 describe('defer', function () {

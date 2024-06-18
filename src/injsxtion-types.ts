@@ -72,6 +72,8 @@ export type GetExtraFieldsByName<
 
 /* -- module builder -- */
 
+export interface AnyExtra {}
+
 type IsExtrasFulfilled<Extras, ResolvedKeys> = IsNever<
   Exclude<RequiredFields<Extras>, ResolvedKeys>
 >;

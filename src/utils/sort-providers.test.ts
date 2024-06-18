@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest';
 import { Edge, sortProviders } from './sort-providers';
 
 describe('sort dag', function () {

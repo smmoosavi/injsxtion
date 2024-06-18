@@ -30,7 +30,7 @@ export interface Context {
   addModule(definition: ModuleDefinition): void;
 }
 
-export interface ModuleDefinition<ID = ModuleId, Extra = {}> {
+export interface ModuleDefinition<ID = ModuleId, Extra = Object> {
   id: ID;
   kind: Kind;
   depth?: Depth;

@@ -5,6 +5,7 @@ import {
   WithProviderTypeDefinition,
 } from './injsxtion-types';
 import { createInjsxtion } from './create-injsxtion';
+import { describe, expect, it } from 'vitest';
 
 describe('module', function () {
   it('should render', async function () {
